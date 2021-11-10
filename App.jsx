@@ -14,7 +14,7 @@ export default function App() {
         <Stack.Screen name="Otp" component={OtpView} />
         <Stack.Screen name="Username" component={OtpView} />
         <Stack.Screen name="Birthday" component={BirthdayView} /> */}
-        <Stack.Screen name="Profile" component={ProfileView} />
+        <Stack.Screen name="Profile" component={ProfileView} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

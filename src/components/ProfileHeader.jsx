@@ -14,7 +14,7 @@ const ProfileHeader = ({
   folowings,
 }) => {
   return (
-    <View>
+    <View style={{ paddingHorizontal: 20 }}>
       <View style={styles.header}>
         <View style={styles.usernameContainer}>
           <Text style={styles.username}>{username}</Text>
@@ -29,23 +29,26 @@ const ProfileHeader = ({
         <ListItem
           topDivider
           bottomDivider
-          containerStyle={{ paddingHorizontal: 0, paddingVertical: 6 }}
+          containerStyle={{
+            paddingHorizontal: 0,
+            paddingVertical: 6,
+          }}
         >
           <ListItem.Content>
             <ListItem.Title style={{ fontWeight: "bold", fontSize: 14 }}>
               Professional Dashboard
             </ListItem.Title>
             <ListItem.Subtitle
-              style={{ fontSize: 12, color: Colors.CUSTOM_LIGHT }}
+              style={{ fontSize: 12, color: Colors.DEFAULT_LIGHT }}
             >
               Tools and ressources just for creators.
             </ListItem.Subtitle>
           </ListItem.Content>
-          <ListItem.Chevron color={Colors.BLACK} />
+          <ListItem.Chevron color={Colors.DEFAULT_LIGHT} />
         </ListItem>
       </View>
       <View style={styles.profile}>
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "flex-start" }}>
           <Avatar source={avatar} rounded size={100}>
             <Avatar.Accessory />
           </Avatar>
@@ -53,16 +56,20 @@ const ProfileHeader = ({
         </View>
         <View style={{ alignItems: "center" }}>
           <Text style={styles.posts}>{posts}</Text>
-          <Text>Posts</Text>
+          <Text style={styles.text}>Posts</Text>
         </View>
         <View style={{ alignItems: "center" }}>
           <Text style={styles.folowers}>{folowers}</Text>
-          <Text>Folowers</Text>
+          <Text style={styles.text}>Folowers</Text>
         </View>
         <View style={{ alignItems: "center" }}>
           <Text style={styles.folowings}>{folowings}</Text>
-          <Text>Folowings</Text>
+          <Text style={styles.text}>Folowings</Text>
         </View>
+      </View>
+      <View style={styles.bioContainer}>
+        <Text style={styles.statut}>{statut}</Text>
+        <Text style={styles.bio}>{bio}</Text>
       </View>
     </View>
   );
@@ -90,6 +97,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 20,
+    paddingBottom: 0,
   },
   username: {
     fontSize: 25,
@@ -113,5 +121,15 @@ const styles = StyleSheet.create({
   folowings: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  bioContainer: {},
+  bio: {
+    color: Colors.BLACK,
+  },
+  text: {
+    color: Colors.BLACK,
+  },
+  statut: {
+    color: Colors.CUSTOM_LIGHT,
   },
 });
