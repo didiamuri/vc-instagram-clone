@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",
@@ -21,8 +22,10 @@
     "react-native": "0.64.2",
     "react-native-date-picker": "^4.1.1",
     "react-native-elements": "^3.4.2",
+    "react-native-gesture-handler": "^1.10.3",
     "react-native-otp-form": "^1.0.2",
     "react-native-pager-view": "5.4.6",
+    "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-tab-view": "^3.1.1",

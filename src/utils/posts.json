@@ -1,0 +1,25 @@
+[
+    {
+      "id": 1,
+      "username": "danielrub",
+      "liked": 5
+    },
+    {
+      "id": 2,
+      "username": "danielrub",
+      "liked": 6
+    }, {
+      "id": 3,
+      "username": "danielrub",
+      "liked": 2
+    }, {
+      "id": 4,
+      "username": "danielrub",
+      "liked": 5
+    }, {
+      "id": 5,
+      "username": "danielrub",
+      "liked": 9
+    }
+  ]
+  

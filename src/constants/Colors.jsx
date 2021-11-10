@@ -5,4 +5,6 @@ export default {
   DEFAULT_LIGHT: "#9DA1A5",
   INPUT_BACKGROUND: "#262626",
   CUSTOM_LIGHT: "#5a5b5c",
+TAB_ICON_COLOR : "black",
+TAB_ICON_COLOR_ACTIVE : "black",
 };
