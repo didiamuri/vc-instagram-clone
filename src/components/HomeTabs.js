@@ -9,11 +9,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Images } from "../constants";
 import HomeViewCustomHeader from "./HomeViewCustomHeader";
 import SearchViewCustomHeader from "./SearchViewCustomHeader";
-<<<<<<< HEAD
 import ProfileHeader from "./ProfileHeader";
-=======
 import Svg, { Path } from "react-native-svg";
->>>>>>> f7be5b1c5ed89d39724f34d025d6312410d2adfa
 
 const Tab = createBottomTabNavigator();
 const handleNavigationOptions = ({ route }) => ({
