@@ -11,7 +11,7 @@ const h = Dimensions.get("screen").height;
 
 const ProfileView = () => {
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.container}>
             <ProfileHeader
                 username="didiamuri"
                 name='Didierson'
@@ -48,7 +48,7 @@ const ProfileView = () => {
             </View>
             <ProfileStory />
             <ProfileTab />
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 

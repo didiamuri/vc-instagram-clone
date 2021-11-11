@@ -10,7 +10,7 @@ const h = Dimensions.get("screen").height;
 const ProfileTab = () => {
   const Tab = createMaterialTopTabNavigator();
   const squares = [];
-  const squareNumber = 4;
+  const squareNumber = 20;
 
   for (let i = 0; i < squareNumber; i++) {
     squares.push(
@@ -107,7 +107,7 @@ const ProfileTab = () => {
 
   return (
     <Tab.Navigator
-      style={{ marginTop: -70 }}
+      style={{ marginTop: -50 }}
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         tabBarIndicatorStyle: {
