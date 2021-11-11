@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Avatar, Icon, ListItem } from "react-native-elements";
 import { Colors } from "../constants";
 
-const ProfileHeader = ({
+const ProfileInfos = ({
   name,
   statut,
   bio,
@@ -15,16 +15,6 @@ const ProfileHeader = ({
 }) => {
   return (
     <View style={{ paddingHorizontal: 20 }}>
-      <View style={styles.header}>
-        <View style={styles.usernameContainer}>
-          <Text style={styles.username}>{username}</Text>
-          <Icon name="chevron-down" type="ionicon" size={20} />
-        </View>
-        <View style={styles.menu}>
-          <Icon name="plus-square" type="feather" size={30} />
-          <Icon name="menu" type="feather" size={30} />
-        </View>
-      </View>
       <View>
         <ListItem
           topDivider
@@ -75,33 +65,15 @@ const ProfileHeader = ({
   );
 };
 
-export default ProfileHeader;
+export default ProfileInfos;
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingTop: 20,
-    marginBottom: 10,
-  },
-  usernameContainer: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  menu: {
-    flexDirection: "row",
-    alignItems: "flex-end",
-  },
   profile: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingVertical: 20,
     paddingBottom: 0,
-  },
-  username: {
-    fontSize: 25,
-    fontWeight: "bold",
   },
   avatar: {
     borderRadius: 100,

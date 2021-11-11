@@ -9,7 +9,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Images } from "../constants";
 import HomeViewCustomHeader from "./HomeViewCustomHeader";
 import SearchViewCustomHeader from "./SearchViewCustomHeader";
-
+import ProfileHeader from "./ProfileHeader";
 
 const Tab = createBottomTabNavigator();
 const handleNavigationOptions = ({ route }) => ({
@@ -41,14 +41,14 @@ export const HomeTabs = () => {
         name="home"
         component={HomeView}
         options={{
-          header: (props) => <HomeViewCustomHeader {...props} />
+          header: (props) => <HomeViewCustomHeader {...props} />,
         }}
       ></Tab.Screen>
 
       <Tab.Screen
         name="search"
         component={SearchView}
-        options={{header: (props) => <SearchViewCustomHeader {...props} /> }}
+        options={{ header: (props) => <SearchViewCustomHeader {...props} /> }}
       ></Tab.Screen>
 
       <Tab.Screen
@@ -64,7 +64,9 @@ export const HomeTabs = () => {
       <Tab.Screen
         name="profile"
         component={ProfileView}
-        options={{ tabBarLabel: "Profile ", headerTitle: "Profile" }}
+        options={{
+          header: (props) => <ProfileHeader {...props} />,
+        }}
       ></Tab.Screen>
     </Tab.Navigator>
   );

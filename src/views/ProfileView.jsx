@@ -2,7 +2,7 @@ import React from 'react';
 import { Dimensions, SafeAreaView, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import ProfileTab from '../components/ProfileTab';
-import ProfileHeader from '../components/ProfileHeader';
+import ProfileInfos from '../components/ProfileInfos';
 import ProfileStory from '../components/ProfileStory';
 import { Colors, Images } from "../constants";
 
@@ -12,7 +12,7 @@ const h = Dimensions.get("screen").height;
 const ProfileView = () => {
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={styles.container}>
-            <ProfileHeader
+            <ProfileInfos
                 username="didiamuri"
                 name='Didierson'
                 posts='123'
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.WHITE,
-        marginTop: 20
     },
     btnContainer: {
         flexDirection: "row",
