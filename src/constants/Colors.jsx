@@ -6,4 +6,6 @@ export default {
   GRAY_LIGHT: "#d6dbdb",
   INPUT_BACKGROUND: "#262626",
   CUSTOM_LIGHT: "#5a5b5c",
+TAB_ICON_COLOR : "black",
+TAB_ICON_COLOR_ACTIVE : "black",
 };
