@@ -1,15 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import Svg, { Path } from "react-native-svg";
 import { Colors } from "../constants";
+
+const w = Dimensions.get("screen").width;
+const h = Dimensions.get("screen").height;
 
 const ProfileHeader = () => {
   return (
     <View style={styles.container}>
       <View style={styles.usernameContainer}>
         <Text style={styles.username}>didiamuri</Text>
-        <Icon name="chevron-down" type="ionicon" size={20} />
+        <Icon name="chevron-down" type="ionicon" size={20} containerStyle={{ marginTop: 5 }} />
       </View>
       <View style={styles.menu}>
         <Svg

@@ -69,7 +69,7 @@ const ProfileStory = () => {
 
   return (
     <ScrollView
-      showsHorizontalScrollIndicator={false} horizontal style={{ paddingVertical: 10, flex: 1, marginTop: -60 }}>
+      showsHorizontalScrollIndicator={false} horizontal style={{ paddingVertical: 20, marginLeft: 5, marginTop: -50 }}>
       {_renderNews()}
     </ScrollView>
   );
