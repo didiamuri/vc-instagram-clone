@@ -1,7 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Avatar, Icon, ListItem } from "react-native-elements";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Avatar, Button, Icon, ListItem } from "react-native-elements";
 import { Colors } from "../constants";
+
+const w = Dimensions.get("screen").width;
+const h = Dimensions.get("screen").height;
 
 const ProfileInfos = ({
   name,
@@ -14,6 +17,7 @@ const ProfileInfos = ({
   folowings,
 }) => {
   return (
+    <>
     <View style={{ paddingHorizontal: 20 }}>
       <View>
         <ListItem
@@ -61,7 +65,32 @@ const ProfileInfos = ({
         <Text style={styles.statut}>{statut}</Text>
         <Text style={styles.bio}>{bio}</Text>
       </View>
-    </View>
+      </View>
+      <View style={{ marginVertical: 10, paddingHorizontal: 20 }}>
+        <Button
+          title="Edit Profile"
+          type="outline"
+          buttonStyle={styles.buttonStyle}
+        />
+        <View style={styles.btnContainer}>
+          <Button
+            title="Add Tools"
+            type="outline"
+            buttonStyle={[styles.buttonStyle, { width: w / 3.6 }]}
+          />
+          <Button
+            title="Insights"
+            type="outline"
+            buttonStyle={[styles.buttonStyle, { width: w / 3.6 }]}
+          />
+          <Button
+            title="Add Shop"
+            type="outline"
+            buttonStyle={[styles.buttonStyle, { width: w / 3.6 }]}
+          />
+        </View>
+      </View>
+    </>
   );
 };
 
@@ -104,4 +133,14 @@ const styles = StyleSheet.create({
   statut: {
     color: Colors.CUSTOM_LIGHT,
   },
+  btnContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+  },
+  buttonStyle: {
+    borderColor: Colors.GRAY_LIGHT,
+    borderWidth: 1,
+  }
 });

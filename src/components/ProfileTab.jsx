@@ -107,7 +107,6 @@ const ProfileTab = () => {
 
   return (
     <Tab.Navigator
-      style={{ marginTop: -30 }}
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
         tabBarIndicatorStyle: {
