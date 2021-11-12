@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions, StyleSheet, Text, View } from "react-native";
-import { Avatar, Button, Icon, ListItem } from "react-native-elements";
+import { Avatar, Button, ListItem } from "react-native-elements";
 import { Colors } from "../constants";
 
 const w = Dimensions.get("screen").width;

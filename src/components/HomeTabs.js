@@ -56,7 +56,7 @@ const handleNavigationOptions = ({ route }) => ({
     } else if (route.name === "addPost") {
       iconName = focused ? "add-circle" : "add-circle-outline";
     } else if (route.name === "profile") {
-      iconName = focused ? "person" : "person-outline";
+      iconName = focused ? "person-circle" : "person-circle-outline";
     }
     return (
       <Ionicons name={iconName} size={Images.TAB_ICON_SIZE} color={color} />
