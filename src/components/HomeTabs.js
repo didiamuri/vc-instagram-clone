@@ -9,6 +9,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Images } from "../constants";
 import HomeViewCustomHeader from "./HomeViewCustomHeader";
 import SearchViewCustomHeader from "./SearchViewCustomHeader";
+import ProfileHeader from "./ProfileHeader";
 import Svg, { Path } from "react-native-svg";
 
 const Tab = createBottomTabNavigator();
@@ -55,7 +56,7 @@ const handleNavigationOptions = ({ route }) => ({
     } else if (route.name === "addPost") {
       iconName = focused ? "add-circle" : "add-circle-outline";
     } else if (route.name === "profile") {
-      iconName = focused ? "person" : "person-outline";
+      iconName = focused ? "person-circle" : "person-circle-outline";
     }
     return (
       <Ionicons name={iconName} size={Images.TAB_ICON_SIZE} color={color} />
@@ -95,7 +96,9 @@ export const HomeTabs = () => {
       <Tab.Screen
         name="profile"
         component={ProfileView}
-        options={{ tabBarLabel: "Profile ", headerTitle: "Profile" }}
+        options={{
+          header: (props) => <ProfileHeader {...props} />,
+        }}
       ></Tab.Screen>
     </Tab.Navigator>
   );
