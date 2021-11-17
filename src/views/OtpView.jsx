@@ -8,12 +8,12 @@ import {
   TextInput,
   View,
 } from "react-native";
+import axios from 'axios';
 import { Button, Icon } from "react-native-elements";
-import { Colors } from "../constants";
+import { Colors, Endpoints } from "../constants";
 
 const OtpView = ({ route }) => {
   const navigation = useNavigation();
-  const onNext = () => navigation.navigate("Register");
   const input1 = useRef();
   const input2 = useRef();
   const input3 = useRef();
@@ -21,6 +21,23 @@ const OtpView = ({ route }) => {
   const input5 = useRef();
   const input6 = useRef();
   const [otp, setOpt] = useState({ 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" });
+
+  const onNext = () => navigation.navigate("Register");
+  const [isLoading, setIsLoading] = useState(false);
+  const body = {
+    code: otp[1] + otp[2] + otp[3] + otp[4] + otp[5] + otp[6],
+    email: route.params.email
+  }
+
+  const otpVerify = async () => {
+    setIsLoading(true);
+    await axios.post(Endpoints.CHECK_OTP, {})
+      .then((res) => {
+        setIsLoading(false);
+        navigation.navigate("Otp", body);
+      })
+      .catch((err) => setIsLoading(false))
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -117,7 +134,7 @@ const OtpView = ({ route }) => {
           </View>
         </View>
         <View style={{ marginTop: 20 }}>
-          <Button type="solid" title="Next" onPress={onNext} />
+          <Button onPress={otpVerify} loading={isLoading ? true : false} type="solid" title="Next" />
         </View>
       </View>
     </SafeAreaView>
