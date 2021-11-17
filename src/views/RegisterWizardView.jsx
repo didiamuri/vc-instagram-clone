@@ -22,8 +22,13 @@ const RegisterWizardView = ({ route }) => {
     setStep(step - 1);
   };
 
-  const values = { fullName, password, birthDay, username, email };
-  values.email = route.params.email;
+  const values = {
+    fullName,
+    password,
+    birthDay,
+    username,
+    email: route.params.email
+  };
 
   return (
     <>

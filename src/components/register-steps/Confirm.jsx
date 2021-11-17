@@ -8,7 +8,7 @@ import { AuthContext } from "../../contexts/context";
 const Confirm = ({ values, back }) => {
   const navigation = useNavigation();
 
-  const { signUp } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
 
 
   return (
@@ -21,7 +21,7 @@ const Confirm = ({ values, back }) => {
         </Text>
         <View>
           <View style={{ marginTop: 20 }}>
-            <Button onPress={() => signUp(values)} type="solid" title="Sign Up" />
+            <Button onPress={() => signup(values)} type="solid" title="Sign Up" />
           </View>
         </View>
       </View>

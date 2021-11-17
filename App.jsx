@@ -27,12 +27,14 @@ export default function App() {
     },
     signup: async (values) => {
       setIsLoading(true);
-      await axios.post(Endpoints.SIGNUP, values)
+      await axios.put(Endpoints.SIGNUP, values)
         .then((res) => {
           setToken(res.data.token);
           setIsLoading(false);
         })
-        .catch((err) => setIsLoading(false));
+        .catch((err) => {
+          setIsLoading(false);
+        });
     },
     logOut: () => {
       setToken(null);
