@@ -23,18 +23,12 @@ export default function App() {
           setToken(res.data.token);
           setIsLoading(false);
         })
-        .catch((err) => {
-          setIsLoading(false);
-        });
+        .catch((err) => setIsLoading(false));
     },
     logOut: () => {
       setToken(null);
       setIsLoading(false);
     },
-    register: () => {
-      setToken("hshs");
-      setIsLoading(false);
-    }
   }), []);
 
   useEffect(() => {
@@ -62,8 +56,8 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Login" component={LoginView} options={{ headerShown: false, headerTitle: "Log In" }} />
             <Stack.Screen name="Signup" component={SignupView} options={{ headerShown: true, headerTitle: "", }} />
-            <Stack.Screen name="Otp" component={OtpView} options={{ headerShown: true, headerTitle: "" }} />
-            <Stack.Screen name="Register" component={RegisterWizardView} options={{ headerShown: true, headerTitle: "" }} />
+              <Stack.Screen name="Otp" component={OtpView} options={{ headerShown: true, headerTitle: "Enter confirmation code", title: "" }} />
+              <Stack.Screen name="Register" component={RegisterWizardView} options={{ headerShown: true, headerTitle: "Register" }} />
           </Stack.Navigator>
         )}
 

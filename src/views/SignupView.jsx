@@ -1,17 +1,17 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
-  Pressable,
   StatusBar,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
+import axios from 'axios';
 import { Button, Icon, Tab } from "react-native-elements";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Colors } from "../constants";
+import { Colors, Endpoints } from "../constants";
 
 const w = Dimensions.get("screen").width;
 const h = Dimensions.get("screen").height;
@@ -22,10 +22,6 @@ const SignupView = () => {
     { key: "phone", title: "Phone" },
     { key: "email", title: "Email" },
   ]);
-
-  const navigation = useNavigation();
-  const onBack = () => navigation.navigate("Login");
-  const onNext = () => navigation.navigate("Otp");
 
   return (
     <>
@@ -100,13 +96,26 @@ const _phoneRender = () => {
 
 const _emailRender = () => {
   const navigation = useNavigation();
-  const onNext = () => navigation.navigate("Otp");
+  const [email, onChangeEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const register = async (email) => {
+    setIsLoading(true);
+    await axios.post(Endpoints.REGISTER, { email })
+      .then((res) => {
+        setIsLoading(false);
+        navigation.navigate("Otp", { email: res.data.email });
+      })
+      .catch((err) => setIsLoading(false))
+  };
 
   return (
     <View style={styles.tabRender}>
       <View>
         <View style={styles.inputContainer}>
           <TextInput
+            value={email}
+            onChangeText={onChangeEmail}
             textContentType="emailAddress"
             placeholder="Email"
             placeholderTextColor={Colors.CUSTOM_LIGHT}
@@ -115,7 +124,7 @@ const _emailRender = () => {
           />
         </View>
         <View style={styles.btnContainer}>
-          <Button onPress={onNext} type="solid" title="Next" />
+          <Button onPress={() => register(email)} loading={isLoading ? true : false} type="solid" title="Next" />
           <View style={{ alignItems: "center" }}>
             <Text style={[styles.text, { marginTop: 30 }]}>OR</Text>
             <View style={styles.fbkLoginContainer}>
@@ -200,4 +209,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginTop: 10,
   },
+  loadingIndicator: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });

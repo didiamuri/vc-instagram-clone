@@ -11,7 +11,7 @@ import {
 import { Button, Icon } from "react-native-elements";
 import { Colors } from "../constants";
 
-const OtpView = () => {
+const OtpView = ({ route }) => {
   const navigation = useNavigation();
   const onNext = () => navigation.navigate("Register");
   const input1 = useRef();
@@ -24,11 +24,11 @@ const OtpView = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent />
+      <StatusBar barStyle="default" translucent />
       <View style={styles.content}>
-        <Text style={styles.title}>Enter confirmation code</Text>
+        {/* <Text style={styles.title}>Enter confirmation code</Text> */}
         <Text style={styles.subTitle}>
-          Enter the confirmation code we sent to didierson.idi@vodacom.cd
+          Enter the confirmation code we sent to {route.params.email}
         </Text>
         <Button
           icon={
