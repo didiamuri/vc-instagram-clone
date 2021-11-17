@@ -1,11 +1,16 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useContext } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import { Colors } from "../../constants";
+import { AuthContext } from "../../contexts/context";
 
-const Confirm = ({ values, back, signUp }) => {
+const Confirm = ({ values, back }) => {
   const navigation = useNavigation();
+
+  const { signUp } = useContext(AuthContext);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -15,8 +20,8 @@ const Confirm = ({ values, back, signUp }) => {
           later.
         </Text>
         <View>
-          <View style={{ marginTop: 20, paddingHorizontal: 4 }}>
-            <Button onPress={signUp} type="solid" title="Sign Up" />
+          <View style={{ marginTop: 20 }}>
+            <Button onPress={() => signUp(values)} type="solid" title="Sign Up" />
           </View>
         </View>
       </View>

@@ -15,7 +15,6 @@ import { Button, Icon } from "react-native-elements";
 import { Colors, Images } from "../constants";
 import { AuthContext } from "../contexts/context";
 
-const w = Dimensions.get("screen").width;
 const h = Dimensions.get("screen").height;
 
 const LoginView = () => {

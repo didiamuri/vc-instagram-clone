@@ -37,7 +37,7 @@ const BirthdayForm = ({ values, handleChange, back, continues }) => {
         <View>
           <View style={styles.inputContainer}>
             <TextInput
-              value={values.birthday}
+              value={values.birthDay}
               defaultValue={moment().format("L")}
               textContentType="none"
               onPressIn={() => setShow(true)}

@@ -16,8 +16,8 @@ const FullnameForm = ({ values, handleChange, continues, back }) => {
         <View>
           <View style={styles.inputContainer}>
             <TextInput
-              value={values.fullname}
-              defaultValue={values.fullname}
+              value={values.fullName}
+              defaultValue={values.fullName}
               onChangeText={(val) => handleChange(val)}
               textContentType="name"
               placeholder="Full name"
