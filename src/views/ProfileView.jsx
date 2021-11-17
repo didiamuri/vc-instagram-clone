@@ -17,7 +17,6 @@ const ProfileView = () => {
             renderItem={() => (
                 <>
                     <ProfileInfos
-                        username="didiamuri"
                         name='Didierson'
                         posts='123'
                         folowers='1.5M'

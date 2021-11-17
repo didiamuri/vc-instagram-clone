@@ -66,7 +66,7 @@ const ProfileMenuSheet = ({ openMenu }) => {
           backgroundColor: "white",
           borderTopStartRadius: 12,
           borderTopEndRadius: 12,
-          height: h / 1.4,
+          height: h / 1.26,
         },
       }}
     >

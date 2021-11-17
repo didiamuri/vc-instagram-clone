@@ -47,7 +47,7 @@ const ProfileCreateSheet = ({ createBnt }) => {
           backgroundColor: "white",
           borderTopStartRadius: 12,
           borderTopEndRadius: 12,
-          height: h / 2.4,
+          height: h / 2,
         },
       }}
     >

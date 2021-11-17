@@ -10,7 +10,6 @@ const ProfileInfos = ({
   name,
   statut,
   bio,
-  username,
   avatar,
   posts,
   folowers,
@@ -18,7 +17,7 @@ const ProfileInfos = ({
 }) => {
   return (
     <>
-    <View style={{ paddingHorizontal: 20 }}>
+      <View style={{ paddingHorizontal: 10 }}>
       <View>
         <ListItem
           topDivider
@@ -66,7 +65,7 @@ const ProfileInfos = ({
         <Text style={styles.bio}>{bio}</Text>
       </View>
       </View>
-      <View style={{ marginVertical: 10, paddingHorizontal: 20 }}>
+      <View style={{ marginVertical: 10, paddingHorizontal: 10 }}>
         <Button
           title="Edit Profile"
           type="outline"

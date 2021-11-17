@@ -22,14 +22,14 @@ const ProfileHeader = () => {
           name="plus-square"
           type="feather"
           size={30}
-          containerStyle={{ marginLeft: 20 }}
+          containerStyle={{ marginLeft: 10 }}
         />
         <Icon
           onPress={() => openMenu.current.open()}
           name="menu"
           type="feather"
           size={30}
-          containerStyle={{ marginLeft: 20 }}
+          containerStyle={{ marginLeft: 10 }}
         />
         <ProfileCreateSheet createBnt={createBnt} />
         <ProfileMenuSheet openMenu={openMenu} />
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 50,
-    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingHorizontal: 10,
     paddingBottom: 10,
     backgroundColor: Colors.WHITE,
   },

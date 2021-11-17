@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Icon, ListItem } from "react-native-elements";
 import { AuthContext } from "../../contexts/context";
 
@@ -46,7 +46,7 @@ const SettingView = () => {
   const { logOut } = useContext(AuthContext);
 
   return (
-    <View>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {items.map((item, i) => (
         <ListItem key={i} bottomDivider>
           <Icon name={item.icon} type="ionicon" size={25} />
@@ -56,9 +56,9 @@ const SettingView = () => {
           <ListItem.Chevron />
         </ListItem>
       ))}
-      <View style={{ alignItems: "flex-start", marginHorizontal: 10 }}>
+      <View style={{ alignItems: "flex-start", marginHorizontal: 10, marginBottom: 20 }}>
         <Text
-          style={{ fontSize: 18, paddingVertical: 20, paddingHorizontal: 10 }}
+          style={{ fontSize: 18, paddingVertical: 10, paddingHorizontal: 10 }}
         >
           Logins
         </Text>
@@ -71,7 +71,7 @@ const SettingView = () => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
