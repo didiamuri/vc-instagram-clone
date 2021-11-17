@@ -34,7 +34,7 @@ const PasswordForm = ({ values, handleChange, back, continues }) => {
               style={styles.checkbox}
               value={isChecked}
               onValueChange={setChecked}
-              color={isChecked ? "#4267B2" : undefined}
+              color={isChecked ? Colors.DEFAULT_BLUE : undefined}
             />
             <Text style={styles.paragraph}>Save password</Text>
           </View>

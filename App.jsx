@@ -6,7 +6,7 @@ import axios from 'axios';
 import { LoginView, OtpView, RegisterWizardView, SignupView } from "./src/views";
 import { HomeTabs } from "./src/components/HomeTabs";
 import { AuthContext } from "./src/contexts/context";
-import { Endpoints } from "./src/constants";
+import { Colors, Endpoints } from "./src/constants";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,7 +46,7 @@ export default function App() {
   if (isLoading) {
     return (
       <View style={styles.loadingIndicator}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator size="large" color={Colors.DEFAULT_BLUE} />
       </View>
     )
   }

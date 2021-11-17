@@ -27,7 +27,7 @@ const LoginView = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" translucent />
+      <StatusBar barStyle="default" translucent />
       <Image
         source={Images.LOGO_BLACK}
         width="100%"
