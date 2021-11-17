@@ -28,7 +28,6 @@
     "react-native-date-picker": "^4.1.1",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
-    "react-native-otp-form": "^1.0.2",
     "react-native-pager-view": "5.4.6",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-safe-area-context": "3.3.2",

@@ -4791,11 +4791,6 @@ react-native-gesture-handler@^1.10.3:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-react-native-otp-form@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-otp-form/-/react-native-otp-form-1.0.2.tgz#cd49060aa2402132cb8bc9dd4222f0048ad7461f"
-  integrity sha512-agIVqfvEGbc+jU1gQ3pHgk+4uJqB5Qc51eYiYY+gal8+dBl+0ZF/fDOSIhnQ47nOQkHflrf1O7guVkdthvlk3g==
-
 react-native-pager-view@5.4.6:
   version "5.4.6"
   resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-5.4.6.tgz#21d16b67136301875da1355dc9d442a4aafab1c7"
