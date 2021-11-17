@@ -34,7 +34,7 @@ const OtpView = ({ route }) => {
     await axios.post(Endpoints.CHECK_OTP, {})
       .then((res) => {
         setIsLoading(false);
-        navigation.navigate("Otp", body);
+        navigation.navigate("Register");
       })
       .catch((err) => setIsLoading(false))
   };
