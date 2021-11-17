@@ -21,6 +21,7 @@ const UsernameForm = ({ values, handleChange, back, continues }) => {
               defaultValue={values.username}
               onChangeText={(val) => handleChange(val)}
               textContentType="username"
+              autoCapitalize="none"
               placeholder="User Name"
               placeholderTextColor={Colors.CUSTOM_LIGHT}
               style={styles.input}

@@ -40,6 +40,7 @@ const BirthdayForm = ({ values, handleChange, back, continues }) => {
               value={values.birthday}
               defaultValue={moment().format("L")}
               textContentType="none"
+              onPressIn={() => setShow(true)}
               placeholder={moment().format("LL")}
               placeholderTextColor={Colors.CUSTOM_LIGHT}
               style={styles.input}
@@ -61,7 +62,7 @@ const BirthdayForm = ({ values, handleChange, back, continues }) => {
             value={date}
             mode="date"
             is24Hour={true}
-            display="spinner"
+            display="default"
             onChange={onChange}
             dateFormat="shortdate"
           />
