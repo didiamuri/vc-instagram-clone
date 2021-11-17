@@ -29,18 +29,8 @@ const SignupView = () => {
 
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" translucent />
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Pressable onPress={onBack}>
-            <Icon
-              name="chevron-back"
-              type="ionicon"
-              size={35}
-              color={Colors.WHITE}
-            />
-          </Pressable>
-        </View>
         <Text style={styles.title}>Enter phone number or email address</Text>
       </View>
       <TabView
@@ -53,7 +43,7 @@ const SignupView = () => {
         renderTabBar={(props) => (
           <TabBar
             {...props}
-            indicatorStyle={{ backgroundColor: "#dee5e4" }}
+            indicatorStyle={{ backgroundColor: Colors.BLACK }}
             labelStyle={styles.tabLabel}
             style={styles.tabBar}
           />
@@ -61,6 +51,7 @@ const SignupView = () => {
         onIndexChange={setIndex}
         initialLayout={{ width: w }}
         style={styles.tabView}
+
       />
     </>
   );
@@ -79,6 +70,7 @@ const _phoneRender = () => {
             placeholder="Phone number"
             placeholderTextColor={Colors.CUSTOM_LIGHT}
             style={styles.input}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.btnContainer}>
@@ -119,6 +111,7 @@ const _emailRender = () => {
             placeholder="Email"
             placeholderTextColor={Colors.CUSTOM_LIGHT}
             style={styles.input}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.btnContainer}>
@@ -152,44 +145,37 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Colors.BLACK,
-    paddingTop: h / 8,
-  },
-  header: {
-    position: "absolute",
-    top: 50,
-    justifyContent: "space-between",
-    padding: 10,
-    flexDirection: "row",
-    width: "100%",
-    zIndex: 9999,
+    backgroundColor: Colors.WHITE,
+    paddingTop: 30,
   },
   tabView: {
     paddingHorizontal: 25,
-    backgroundColor: Colors.BLACK,
+    backgroundColor: Colors.WHITE,
   },
   tabRender: {
     flex: 1,
-    backgroundColor: Colors.BLACK,
+    backgroundColor: Colors.WHITE,
   },
   tabBar: {
-    backgroundColor: Colors.BLACK,
-    paddingTop: 60,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.CUSTOM_LIGHT,
+    backgroundColor: Colors.WHITE,
+    paddingTop: 30,
+    borderBottomWidth: 0.2,
+    borderBottomColor: Colors.DEFAULT_LIGHT,
+    elevation: 0
   },
   tabLabel: {
     textTransform: "capitalize",
     fontSize: 20,
-    fontWeight: "700",
+    fontWeight: "500",
+    color: Colors.BLACK
   },
   text: {
-    color: Colors.DEFAULT_LIGHT,
+    color: Colors.BLACK,
     fontSize: 14,
     fontWeight: "600",
   },
   title: {
-    color: Colors.WHITE,
+    color: Colors.BLACK,
     fontSize: 25,
     fontWeight: "500",
     textAlign: "center",
@@ -197,7 +183,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: Colors.INPUT_BACKGROUND,
-    borderWidth: 1,
     borderRadius: 5,
     height: 50,
     justifyContent: "center",
@@ -206,7 +191,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginStart: 10,
-    color: Colors.DEFAULT_LIGHT,
+    color: Colors.BLACK,
   },
   btnContainer: {
     marginTop: 20,

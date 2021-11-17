@@ -1,5 +1,5 @@
+import React, { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import {
   Dimensions,
   Image,
@@ -13,20 +13,23 @@ import {
 } from "react-native";
 import { Button, Icon } from "react-native-elements";
 import { Colors, Images } from "../constants";
+import { AuthContext } from "../contexts/context";
 
 const w = Dimensions.get("screen").width;
 const h = Dimensions.get("screen").height;
 
 const LoginView = () => {
   const navigation = useNavigation();
-  const onSignUp = () => navigation.navigate("Signup");
-  const onLogin = () => navigation.navigate("Signup");
+  const [email, onChangeEmail] = useState("");
+  const [password, onChangePassword] = useState("");
+
+  const { login } = useContext(AuthContext);
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" translucent />
+      <StatusBar barStyle="dark-content" translucent />
       <Image
-        source={Images.LOGO_LIGHT}
+        source={Images.LOGO_BLACK}
         width="100%"
         resizeMode="contain"
         style={styles.logo}
@@ -34,17 +37,23 @@ const LoginView = () => {
       <View style={styles.formContainer}>
         <View style={styles.inputContainer}>
           <TextInput
+            value={email}
+            onChangeText={onChangeEmail}
             textContentType="emailAddress"
             placeholder="Email"
+            autoCapitalize="none"
             placeholderTextColor={Colors.CUSTOM_LIGHT}
             style={styles.input}
           />
         </View>
         <View style={styles.inputContainer}>
           <TextInput
+            value={password}
+            onChangeText={onChangePassword}
             textContentType="password"
             placeholder="Password"
-            secureTextEntry
+            autoCapitalize="none"
+            secureTextEntry={true}
             placeholderTextColor={Colors.CUSTOM_LIGHT}
             style={styles.input}
           />
@@ -55,7 +64,7 @@ const LoginView = () => {
           </Pressable>
         </View>
         <View style={styles.btnContainer}>
-          <Button onPress={onLogin} type="solid" title="Login" />
+          <Button onPress={() => login(email, password)} type="solid" title="Login" />
           <View style={{ alignItems: "center" }}>
             <Text style={[styles.text, { marginTop: 30 }]}>OR</Text>
             <View style={styles.fbkLoginContainer}>
@@ -77,7 +86,7 @@ const LoginView = () => {
       </View>
       <View style={styles.footer}>
         <Text style={styles.text}>Don't have an account?</Text>
-        <Pressable onPress={onSignUp}>
+        <Pressable onPress={() => navigation.navigate("Signup")}>
           <Text style={styles.linkText}> Sign Up</Text>
         </Pressable>
       </View>
@@ -91,7 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    backgroundColor: Colors.BLACK,
+    backgroundColor: Colors.WHITE,
   },
   logo: {
     width: 250,
@@ -100,7 +109,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: Colors.INPUT_BACKGROUND,
-    borderWidth: 1,
     borderRadius: 5,
     height: 50,
     justifyContent: "center",
@@ -110,11 +118,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   formContainer: {
-    marginTop: 80,
+    marginTop: 60,
   },
   input: {
     marginStart: 10,
-    color: Colors.DEFAULT_LIGHT,
+    color: Colors.BLACK,
   },
   btnContainer: {
     marginTop: 25,
@@ -140,7 +148,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   footer: {
-    top: h - 700,
+    top: h / 6 - 30,
     bottom: 0,
     paddingHorizontal: 85,
     flexDirection: "row",

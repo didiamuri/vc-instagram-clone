@@ -1,18 +1,14 @@
 import React, { useRef } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
-import RBSheet from "react-native-raw-bottom-sheet";
 import { Colors } from "../constants";
 import ProfileCreateSheet from "./ProfileCreateSheet";
 import ProfileMenuSheet from "./ProfileMenuSheet";
 
-const w = Dimensions.get("screen").width;
-const h = Dimensions.get("screen").height;
-
 const ProfileHeader = () => {
 
-  const openMenu = useRef();
   const createBnt = useRef();
+  const openMenu = useRef();
 
   return (
     <View style={styles.container}>
@@ -35,52 +31,8 @@ const ProfileHeader = () => {
           size={30}
           containerStyle={{ marginLeft: 20 }}
         />
-        <RBSheet
-          ref={createBnt}
-          closeOnDragDown={true}
-          closeOnPressMask={true}
-          animationType="fade"
-          openDuration={600}
-          customStyles={{
-            wrapper: {
-              background: "rgba(76, 175, 80, 0.9)",
-            },
-            draggableIcon: {
-              backgroundColor: "#000",
-            },
-            container: {
-              backgroundColor: "white",
-              borderTopStartRadius: 12,
-              borderTopEndRadius: 12,
-              height: h / 2.4,
-            },
-          }}
-        >
-          <ProfileCreateSheet />
-        </RBSheet>
-        <RBSheet
-          ref={openMenu}
-          closeOnDragDown={true}
-          closeOnPressMask={true}
-          animationType="fade"
-          openDuration={600}
-          customStyles={{
-            wrapper: {
-              background: "rgba(76, 175, 80, 0.9)",
-            },
-            draggableIcon: {
-              backgroundColor: "#000",
-            },
-            container: {
-              backgroundColor: "white",
-              borderTopStartRadius: 12,
-              borderTopEndRadius: 12,
-              height: h / 1.5,
-            },
-          }}
-        >
-          <ProfileMenuSheet />
-        </RBSheet>
+        <ProfileCreateSheet createBnt={createBnt} />
+        <ProfileMenuSheet openMenu={openMenu} />
       </View>
     </View>
   );

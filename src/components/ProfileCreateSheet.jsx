@@ -1,8 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import { Icon, ListItem } from "react-native-elements";
+import RBSheet from "react-native-raw-bottom-sheet";
 
-const ProfileCreateSheet = () => {
+const h = Dimensions.get("screen").height;
+
+const ProfileCreateSheet = ({ createBnt }) => {
   const items = [
     {
       name: "Post",
@@ -27,7 +30,27 @@ const ProfileCreateSheet = () => {
   ];
 
   return (
-    <View>
+    <RBSheet
+      ref={createBnt}
+      closeOnDragDown={true}
+      closeOnPressMask={true}
+      animationType="fade"
+      openDuration={600}
+      customStyles={{
+        wrapper: {
+          background: "rgba(76, 175, 80, 0.9)",
+        },
+        draggableIcon: {
+          backgroundColor: "#000",
+        },
+        container: {
+          backgroundColor: "white",
+          borderTopStartRadius: 12,
+          borderTopEndRadius: 12,
+          height: h / 2.4,
+        },
+      }}
+    >
       {items.map((item, i) => (
         <ListItem key={i} bottomDivider>
           <Icon name={item.icon} type="ionicon" size={25} />
@@ -36,7 +59,7 @@ const ProfileCreateSheet = () => {
           </ListItem.Content>
         </ListItem>
       ))}
-    </View>
+    </RBSheet>
   );
 };
 
