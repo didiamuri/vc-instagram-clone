@@ -40,6 +40,7 @@ export default function App() {
     logOut: () => {
       setToken(null);
       setIsLoading(false);
+      removeToken();
     },
   }), []);
 
@@ -53,6 +54,12 @@ export default function App() {
   const storeToken = async (token) => {
     try {
       await AsyncStorage.setItem("@token", token);
+    } catch (e) { }
+  }
+
+  const removeToken = async () => {
+    try {
+      await AsyncStorage.clear();
     } catch (e) { }
   }
 

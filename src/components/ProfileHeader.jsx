@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Colors } from "../constants";
 import ProfileCreateSheet from "./ProfileCreateSheet";
 import ProfileMenuSheet from "./ProfileMenuSheet";
@@ -9,11 +10,24 @@ const ProfileHeader = () => {
 
   const createBnt = useRef();
   const openMenu = useRef();
+  const [userData, setUserData] = useState({});
+
+  const getLocalData = async () => {
+    try {
+      const data = await AsyncStorage.getItem('@userData')
+      const parsedData = JSON.parse(data);
+      setUserData(parsedData);
+    } catch (e) { }
+  }
+
+  useEffect(() => {
+    getLocalData();
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.usernameContainer}>
-        <Text style={styles.username}>didiamuri</Text>
+        <Text style={styles.username}>{userData.username}</Text>
         <Icon name="chevron-down" type="ionicon" size={20} containerStyle={{ marginTop: 5 }} />
       </View>
       <View style={styles.menu}>
