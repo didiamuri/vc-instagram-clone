@@ -4,4 +4,5 @@ export default {
   REGISTER: "https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/register",
   CHECK_OTP: "https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/verifyOtp",
   SIGNUP: "https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev/completeRegistration",
+  API_URL :"https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev"
 };

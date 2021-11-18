@@ -1,18 +1,72 @@
-import React, { useRef } from "react";
-import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
+import React, { useRef, useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
 import posts from "../utils/posts.json";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { Colors, Images } from "../constants";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Post from "../components/Post";
+import Endpoints from "../constants/Endpoints";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeView = () => {
-  return (
+  const { API_URL } = Endpoints;
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(null);
+
+  const getToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem("@token");
+      if (token !== null) {
+        setToken(token);
+      }
+    } catch (e) {}
+  };
+  const headers = {
+    method: "GET",
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + token,
+  };
+
+  const fetchData = () => {
+    setLoading(true);
+    fetch(API_URL + "/posts", { headers: headers })
+      .then((res) => res.json())
+      .then((body) => {
+        setData(body);
+        setLoading(false);
+        console.log(body);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getToken();
+    fetchData();
+  }, []);
+  return loading ? (
+    <View style={{ backgroundColor: "white", flex: 1 }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator color="grey" size={40} />
+      </View>
+    </View>
+  ) : (
     <View style={styles.container}>
       <FlatList
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={fetchData} />
+        }
         ListHeaderComponent={<Story />}
-        data={posts}
+        data={data}
         renderItem={({ item, index }) => <Post key={index} post={item} />}
       ></FlatList>
     </View>
@@ -60,7 +114,7 @@ const styles = StyleSheet.create({
     paddingTop: 8,
     paddingBottom: 5,
     justifyContent: "flex-start",
-    alignItems :"flex-start"
+    alignItems: "flex-start",
   },
   status: {
     marginEnd: 10,

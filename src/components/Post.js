@@ -1,19 +1,42 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { Colors, Images } from "../constants";
 import Svg, { Path } from "react-native-svg";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Post = (props) => {
-  const { username, liked } = props.post;
+  const [post, setPost] = useState(props.post);
   const refRBSheet = useRef();
+  const toggleLike = () => {
+    if (!post.liked_by_me) {
+      setPost({ ...post, liked_by_me: true,likes : post.likes+1});
+    }
+  };
+  const handleLike = () => {
+    if (post.liked_by_me) {
+      setPost({ ...post, liked_by_me: false, likes : post.likes-1 });
+    } else {
+      setPost({ ...post, liked_by_me: true,likes : post.likes+1 });
+    }
+  };
+  lastTap = null;
+  handleDoubleTap = () => {
+    const now = Date.now();
+    const DOUBLE_PRESS_DELAY = 300;
+    if (this.lastTap && now - this.lastTap < DOUBLE_PRESS_DELAY) {
+      toggleLike();
+    } else {
+      this.lastTap = now;
+    }
+  };
 
   return (
     <View style={styles.postContainer}>
       <View style={styles.headerSection}>
         <View>
-          <Text>{username}</Text>
+          <Text>{post.username}</Text>
         </View>
         <View>
           <Ionicons
@@ -37,31 +60,22 @@ const Post = (props) => {
                 backgroundColor: "white",
                 borderTopStartRadius: 12,
                 borderTopEndRadius: 12,
-                height: 180,
+                height: 130,
               },
             }}
           >
             <View style={styles.bottomSheetMenu}>
               <View style={styles.bottomSheetMenuItem}>
                 <Ionicons
-                  name="information-circle-outline"
+                  name="trash-outline"
                   size={Images.IMAGE_ICON_SIZE}
                   color={Colors.TAB_ICON_COLOR}
                 />
                 <Text style={styles.bottomSheetMenuText}>
-                  Apropos de ce compte
+                  Delete post
                 </Text>
               </View>
-              <View style={styles.bottomSheetMenuItem}>
-                <Ionicons
-                  name="call-outline"
-                  size={Images.IMAGE_ICON_SIZE}
-                  color={Colors.TAB_ICON_COLOR}
-                />
-                <Text style={styles.bottomSheetMenuText}>
-                  Apropos de ce compte
-                </Text>
-              </View>
+              
               <View style={styles.bottomSheetMenuItem}>
                 <Ionicons
                   name="flag-outline"
@@ -74,15 +88,22 @@ const Post = (props) => {
           </RBSheet>
         </View>
       </View>
-      <Image style={styles.image} source={require("../assets/img/post1.png")} />
+      <TouchableWithoutFeedback onPress={this.handleDoubleTap}>
+        <Image
+          style={styles.image}
+          source={require("../assets/img/post1.png")}
+        />
+      </TouchableWithoutFeedback>
+
       <View style={styles.bottomSection}>
         <View style={styles.iconSection}>
           <View style={styles.imageIcons}>
             <Ionicons
+              onPress={handleLike}
               style={styles.icon}
-              name="heart-outline"
+              name={post.liked_by_me ? "heart" : "heart-outline"}
               size={Images.IMAGE_ICON_SIZE}
-              color={Colors.TAB_ICON_COLOR}
+              color={post.liked_by_me ? "red" : Colors.TAB_ICON_COLOR}
             />
             <Ionicons
               style={styles.icon}
@@ -119,11 +140,11 @@ const Post = (props) => {
           </View>
         </View>
         <View style={styles.caption}>
-          <Text style={styles.captionText}>{liked} j'aime</Text>
+          <Text style={styles.captionText}>{post.likes} Likes</Text>
           <Text style={styles.captionText}></Text>
         </View>
         <View>
-          <Text style={styles.commentText}> comment </Text>
+          <Text style={styles.commentText}> {post.comment} </Text>
         </View>
       </View>
     </View>

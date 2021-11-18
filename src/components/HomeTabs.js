@@ -90,7 +90,7 @@ export const HomeTabs = () => {
       <Tab.Screen
         name="activity"
         component={ActivityView}
-        options={{ tabBarLabel: "Favorite", headerTitle: "Favorite" }}
+        options={{ tabBarLabel: "Favorite", headerTitle: "Activity" }}
       ></Tab.Screen>
       <Tab.Screen
         name="profile"
