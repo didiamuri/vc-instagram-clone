@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   content: {
     alignContent: 'center',
     alignItems: 'center',
-    marginLeft: 10
+    marginLeft: 5
   },
   image: {
     borderWidth: 4,

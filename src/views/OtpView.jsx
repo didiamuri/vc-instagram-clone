@@ -1,43 +1,52 @@
+import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
 import {
-  Dimensions,
-  Pressable,
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
+import axios from 'axios';
 import { Button, Icon } from "react-native-elements";
-import { OTP } from "react-native-otp-form";
+import { Colors, Endpoints } from "../constants";
 
-import { Colors } from "../constants";
-
-const w = Dimensions.get("screen").width;
-const h = Dimensions.get("screen").height;
-
-const OtpView = () => {
+const OtpView = ({ route }) => {
   const navigation = useNavigation();
-  const onBack = () => navigation.navigate("Login");
+  const input1 = useRef();
+  const input2 = useRef();
+  const input3 = useRef();
+  const input4 = useRef();
+  const input5 = useRef();
+  const input6 = useRef();
+  const [otp, setOpt] = useState({ 1: "", 2: "", 3: "", 4: "", 5: "", 6: "" });
+  const [isLoading, setIsLoading] = useState(false);
+
+  // const onNext = () => navigation.navigate("Register", { email: route.params.email });
+
+  const body = {
+    code: otp[1] + otp[2] + otp[3] + otp[4] + otp[5] + otp[6],
+    email: route.params.email
+  }
+
+  const otpVerify = async () => {
+    setIsLoading(true);
+    await axios.post(Endpoints.CHECK_OTP, body)
+      .then((res) => {
+        setIsLoading(false);
+        navigation.navigate("Register", { email: route.params.email });
+      })
+      .catch((err) => setIsLoading(false))
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
-      <View style={styles.header}>
-        <Pressable onPress={onBack}>
-          <Icon
-            name="chevron-back"
-            type="ionicon"
-            size={35}
-            color={Colors.WHITE}
-          />
-        </Pressable>
-      </View>
+      <StatusBar barStyle="default" translucent />
       <View style={styles.content}>
-        <Text style={styles.title}>Enter confirmation code</Text>
+        {/* <Text style={styles.title}>Enter confirmation code</Text> */}
         <Text style={styles.subTitle}>
-          Enter the confirmation code we sent to didierson.idi@vodacom.cd
+          Enter the confirmation code we sent to {route.params.email}
         </Text>
         <Button
           icon={
@@ -51,15 +60,82 @@ const OtpView = () => {
           type="clear"
           title="Resend confirmation code"
         />
-        <View>
-          <OTP
-            codeCount={6}
-            containerStyle={{ marginTop: 20 }}
-            otpStyles={{ backgroundColor: Colors.INPUT_BACKGROUND }}
-          />
+        <View style={styles.otpContainer}>
+          <View style={styles.otpBox}>
+            <TextInput
+              keyboardType="number-pad"
+              maxLength={1}
+              style={styles.otpIntput}
+              ref={input1}
+              onChangeText={(text) => {
+                setOpt({ ...otp, 1: text });
+                text && input2.current.focus();
+              }}
+            />
+          </View>
+          <View style={styles.otpBox}>
+            <TextInput
+              keyboardType="number-pad"
+              maxLength={1}
+              style={styles.otpIntput}
+              ref={input2}
+              onChangeText={(text) => {
+                setOpt({ ...otp, 2: text });
+                text ? input3.current.focus() : input1.current.focus();
+              }}
+            />
+          </View>
+          <View style={styles.otpBox}>
+            <TextInput
+              keyboardType="number-pad"
+              maxLength={1}
+              style={styles.otpIntput}
+              ref={input3}
+              onChangeText={(text) => {
+                setOpt({ ...otp, 3: text });
+                text ? input4.current.focus() : input2.current.focus();
+              }}
+            />
+          </View>
+          <View style={styles.otpBox}>
+            <TextInput
+              keyboardType="number-pad"
+              maxLength={1}
+              style={styles.otpIntput}
+              ref={input4}
+              onChangeText={(text) => {
+                setOpt({ ...otp, 4: text });
+                text ? input5.current.focus() : input3.current.focus();
+              }}
+            />
+          </View>
+          <View style={styles.otpBox}>
+            <TextInput
+              keyboardType="number-pad"
+              maxLength={1}
+              style={styles.otpIntput}
+              ref={input5}
+              onChangeText={(text) => {
+                setOpt({ ...otp, 5: text });
+                text ? input6.current.focus() : input4.current.focus();
+              }}
+            />
+          </View>
+          <View style={styles.otpBox}>
+            <TextInput
+              keyboardType="number-pad"
+              maxLength={1}
+              style={styles.otpIntput}
+              ref={input6}
+              onChangeText={(text) => {
+                setOpt({ ...otp, 6: text });
+                !text && input5.current.focus();
+              }}
+            />
+          </View>
         </View>
-        <View style={{ marginTop: 20, paddingHorizontal: 4 }}>
-          <Button type="solid" title="Next" />
+        <View style={{ marginTop: 20 }}>
+          <Button onPress={otpVerify} loading={isLoading ? true : false} type="solid" title="Next" />
         </View>
       </View>
     </SafeAreaView>
@@ -73,34 +149,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: Colors.BLACK,
-    paddingTop: h / 8,
+    backgroundColor: Colors.WHITE,
     paddingBottom: 10,
   },
-  header: {
-    position: "absolute",
-    top: 50,
-    justifyContent: "space-between",
-    padding: 10,
-    flexDirection: "row",
-    width: "100%",
-    zIndex: 9999,
-  },
   content: {
-    top: h / 15,
+    top: 20,
     paddingHorizontal: 20,
     flex: 1,
   },
   title: {
-    color: Colors.WHITE,
+    color: Colors.BLACK,
     fontSize: 25,
-    fontWeight: "500",
+    fontWeight: "600",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   subTitle: {
-    color: Colors.WHITE,
-    fontSize: 16,
+    color: Colors.BLACK,
+    fontSize: 18,
     fontWeight: "400",
     textAlign: "center",
   },
@@ -108,5 +174,21 @@ const styles = StyleSheet.create({
     color: Colors.DEFAULT_BLUE,
     fontSize: 16,
     fontWeight: "700",
+  },
+  otpContainer: {
+    marginTop: 20,
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  otpBox: {
+    backgroundColor: Colors.INPUT_BACKGROUND,
+    maxWidth: 50,
+    minWidth: 50,
+  },
+  otpIntput: {
+    fontSize: 25,
+    textAlign: "center",
+    padding: 15,
   },
 });
