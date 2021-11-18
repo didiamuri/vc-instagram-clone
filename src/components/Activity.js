@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Image, Text, Button, Dimensions } from "react-native";
 
-const Activity = () => {
+const Activity = ({item}) => {
   return (
     <View style={styles.ActivityContainer}>
       <View style={styles.imageSection}>
@@ -11,7 +11,7 @@ const Activity = () => {
         />
       </View>
       <View style={styles.activityTextSection}>
-        <Text>user10 Who you might know, is on Instagram</Text>
+        <Text>{item.content.message}</Text>
       </View>
       <Text style={styles.textButton}  >Follow </Text>
     </View>

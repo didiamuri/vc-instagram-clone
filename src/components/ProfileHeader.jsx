@@ -1,23 +1,33 @@
-import React, { useRef } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
-import RBSheet from "react-native-raw-bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Colors } from "../constants";
 import ProfileCreateSheet from "./ProfileCreateSheet";
 import ProfileMenuSheet from "./ProfileMenuSheet";
 
-const w = Dimensions.get("screen").width;
-const h = Dimensions.get("screen").height;
-
 const ProfileHeader = () => {
 
-  const openMenu = useRef();
   const createBnt = useRef();
+  const openMenu = useRef();
+  const [username, setUsername] = useState('');
+
+  const getLocalData = async () => {
+    try {
+      const data = await AsyncStorage.getItem('@userData')
+      const parsedData = JSON.parse(data);
+      setUsername(parsedData.username);
+    } catch (e) { }
+  }
+
+  useEffect(() => {
+    getLocalData();
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.usernameContainer}>
-        <Text style={styles.username}>didiamuri</Text>
+        <Text style={styles.username}>{username ? username : 'Profile'}</Text>
         <Icon name="chevron-down" type="ionicon" size={20} containerStyle={{ marginTop: 5 }} />
       </View>
       <View style={styles.menu}>
@@ -26,61 +36,17 @@ const ProfileHeader = () => {
           name="plus-square"
           type="feather"
           size={30}
-          containerStyle={{ marginLeft: 20 }}
+          containerStyle={{ marginLeft: 10 }}
         />
         <Icon
           onPress={() => openMenu.current.open()}
           name="menu"
           type="feather"
           size={30}
-          containerStyle={{ marginLeft: 20 }}
+          containerStyle={{ marginLeft: 10 }}
         />
-        <RBSheet
-          ref={createBnt}
-          closeOnDragDown={true}
-          closeOnPressMask={true}
-          animationType="fade"
-          openDuration={600}
-          customStyles={{
-            wrapper: {
-              background: "rgba(76, 175, 80, 0.9)",
-            },
-            draggableIcon: {
-              backgroundColor: "#000",
-            },
-            container: {
-              backgroundColor: "white",
-              borderTopStartRadius: 12,
-              borderTopEndRadius: 12,
-              height: h / 2.4,
-            },
-          }}
-        >
-          <ProfileCreateSheet />
-        </RBSheet>
-        <RBSheet
-          ref={openMenu}
-          closeOnDragDown={true}
-          closeOnPressMask={true}
-          animationType="fade"
-          openDuration={600}
-          customStyles={{
-            wrapper: {
-              background: "rgba(76, 175, 80, 0.9)",
-            },
-            draggableIcon: {
-              backgroundColor: "#000",
-            },
-            container: {
-              backgroundColor: "white",
-              borderTopStartRadius: 12,
-              borderTopEndRadius: 12,
-              height: h / 1.5,
-            },
-          }}
-        >
-          <ProfileMenuSheet />
-        </RBSheet>
+        <ProfileCreateSheet createBnt={createBnt} />
+        <ProfileMenuSheet openMenu={openMenu} />
       </View>
     </View>
   );
@@ -92,8 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 50,
-    paddingHorizontal: 20,
+    paddingTop: 10,
+    paddingHorizontal: 10,
     paddingBottom: 10,
     backgroundColor: Colors.WHITE,
   },

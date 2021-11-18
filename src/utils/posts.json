@@ -32,8 +32,7 @@
     "caption": "comment",
     "likes": 5,
     "liked_by_me": true,
-    "medias": ["url1","url2"],
-
+    "medias": ["url1","url2"]
   },
   {
     "id": 5,

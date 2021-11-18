@@ -3,14 +3,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ActivityView from "../views/ActivityView";
 import HomeView from "../views/HomeView";
 import SearchView from "../views/SearchView";
-import ProfileView from "../views/ProfileView";
 import AddPostView from "../views/AddPostView";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Images } from "../constants";
 import HomeViewCustomHeader from "./HomeViewCustomHeader";
 import SearchViewCustomHeader from "./SearchViewCustomHeader";
-import ProfileHeader from "./ProfileHeader";
 import Svg, { Path } from "react-native-svg";
+import ProfileNav from "./ProfileNav";
 
 const Tab = createBottomTabNavigator();
 const handleNavigationOptions = ({ route }) => ({
@@ -95,11 +94,9 @@ export const HomeTabs = () => {
       ></Tab.Screen>
       <Tab.Screen
         name="profile"
-        component={ProfileView}
-        options={{
-          header: (props) => <ProfileHeader {...props} />,
-        }}
+        component={ProfileNav}
+        options={{ headerShown: false }}
       ></Tab.Screen>
     </Tab.Navigator>
   );
-};
+}; 

@@ -1,1 +1,0 @@
-export default API_URL ="https://kal6m96sj6.execute-api.eu-central-1.amazonaws.com/dev"

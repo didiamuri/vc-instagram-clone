@@ -10,7 +10,6 @@ const ProfileInfos = ({
   name,
   statut,
   bio,
-  username,
   avatar,
   posts,
   folowers,
@@ -18,7 +17,7 @@ const ProfileInfos = ({
 }) => {
   return (
     <>
-    <View style={{ paddingHorizontal: 20 }}>
+      <View style={{ paddingHorizontal: 10 }}>
       <View>
         <ListItem
           topDivider
@@ -43,7 +42,7 @@ const ProfileInfos = ({
       </View>
       <View style={styles.profile}>
         <View style={{ alignItems: "flex-start" }}>
-          <Avatar source={avatar} rounded size={100}>
+            <Avatar source={{ uri: avatar }} rounded size={100} avatarStyle={{ borderWidth: 1, borderRadius: 100, borderColor: Colors.GRAY_LIGHT }}>
             <Avatar.Accessory />
           </Avatar>
           <Text style={styles.name}>{name}</Text>
@@ -66,7 +65,7 @@ const ProfileInfos = ({
         <Text style={styles.bio}>{bio}</Text>
       </View>
       </View>
-      <View style={{ marginVertical: 10, paddingHorizontal: 20 }}>
+      <View style={{ marginVertical: 10, paddingHorizontal: 10 }}>
         <Button
           title="Edit Profile"
           type="outline"
