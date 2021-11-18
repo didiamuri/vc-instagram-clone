@@ -10,13 +10,13 @@ const ProfileHeader = () => {
 
   const createBnt = useRef();
   const openMenu = useRef();
-  const [userData, setUserData] = useState({});
+  const [username, setUsername] = useState('');
 
   const getLocalData = async () => {
     try {
       const data = await AsyncStorage.getItem('@userData')
       const parsedData = JSON.parse(data);
-      setUserData(parsedData);
+      setUsername(parsedData.username);
     } catch (e) { }
   }
 
@@ -27,7 +27,7 @@ const ProfileHeader = () => {
   return (
     <View style={styles.container}>
       <View style={styles.usernameContainer}>
-        <Text style={styles.username}>{userData.username}</Text>
+        <Text style={styles.username}>{username ? username : 'Profile'}</Text>
         <Icon name="chevron-down" type="ionicon" size={20} containerStyle={{ marginTop: 5 }} />
       </View>
       <View style={styles.menu}>

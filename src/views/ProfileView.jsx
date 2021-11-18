@@ -13,37 +13,6 @@ const data = [{ key: '1' }];
 const ProfileView = () => {
 
     const [userData, setUserData] = useState({});
-    const [token, setToken] = useState(null);
-
-    const fetchData = async () => {
-        await axios.get(Endpoints.GET_PROFILE, {
-            headers: { 'Authorization': 'Bearer ' + token }
-        })
-            .then((result) => {
-                if (result.data) {
-                    setUserData(result.data);
-                    storeData(result.data);
-                }
-            })
-            .catch((e) => {
-                getLocalData();
-            });
-    }
-
-    const getToken = async () => {
-        try {
-            const token = await AsyncStorage.getItem('@token')
-            if (token !== null) {
-                setToken(token)
-            }
-        } catch (e) { }
-    }
-
-    const storeData = async (data) => {
-        try {
-            await AsyncStorage.setItem("@userData", JSON.stringify(data));
-        } catch (e) { }
-    }
 
     const getLocalData = async () => {
         try {
@@ -54,8 +23,7 @@ const ProfileView = () => {
     }
 
     useEffect(() => {
-        getToken();
-        fetchData();
+        getLocalData();
     }, []);
 
     return (
@@ -66,7 +34,7 @@ const ProfileView = () => {
             renderItem={() => (
                 <>
                     <ProfileInfos
-                        name={userData.fullName}
+                        name={userData.fullName ? userData.fullName : ''}
                         posts={userData.posts ? userData.posts : 0}
                         folowers={userData.followers ? userData.followers : 0}
                         folowings={userData.following ? userData.following : 0}

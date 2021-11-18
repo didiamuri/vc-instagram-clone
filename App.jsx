@@ -23,6 +23,7 @@ export default function App() {
         .then((res) => {
           storeToken(res.data.token);
           setToken(res.data.token);
+          fetchUserData(res.data.token);
           setIsLoading(false);
         })
         .catch((err) => setIsLoading(false));
@@ -33,6 +34,7 @@ export default function App() {
         .then((res) => {
           storeToken(res.data.token);
           setToken(res.data.token);
+          fetchUserData(res.data.token);
           setIsLoading(false);
         })
         .catch((err) => setIsLoading(false));
@@ -47,6 +49,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       getToken();
+      fetchUserData(token);
       setIsLoading(false);
     }, 1000)
   }, []);
@@ -69,6 +72,24 @@ export default function App() {
       if (token !== null) {
         setToken(token)
       }
+    } catch (e) { }
+  }
+
+  const fetchUserData = async (jwtToken) => {
+    await axios.get(Endpoints.GET_PROFILE, {
+      headers: { 'Authorization': 'Bearer ' + jwtToken }
+    })
+      .then((result) => {
+        if (result.data) {
+          storeUserData(result.data);
+        }
+      })
+      .catch((e) => { });
+  }
+
+  const storeUserData = async (data) => {
+    try {
+      await AsyncStorage.setItem("@userData", JSON.stringify(data));
     } catch (e) { }
   }
 
