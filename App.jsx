@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { LoginView, OtpView, RegisterWizardView, SignupView } from "./src/views";
 import { HomeTabs } from "./src/components/HomeTabs";
@@ -20,6 +21,7 @@ export default function App() {
       setIsLoading(true);
       await axios.post(Endpoints.LOGIN_URL, { email, password })
         .then((res) => {
+          storeToken(res.data.token);
           setToken(res.data.token);
           setIsLoading(false);
         })
@@ -29,12 +31,11 @@ export default function App() {
       setIsLoading(true);
       await axios.put(Endpoints.SIGNUP, values)
         .then((res) => {
+          storeToken(res.data.token);
           setToken(res.data.token);
           setIsLoading(false);
         })
-        .catch((err) => {
-          setIsLoading(false);
-        });
+        .catch((err) => setIsLoading(false));
     },
     logOut: () => {
       setToken(null);
@@ -44,9 +45,25 @@ export default function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false)
+      getToken();
+      setIsLoading(false);
     }, 1000)
   }, []);
+
+  const storeToken = async (token) => {
+    try {
+      await AsyncStorage.setItem("@token", token);
+    } catch (e) { }
+  }
+
+  const getToken = async () => {
+    try {
+      const token = await AsyncStorage.getItem('@token')
+      if (token !== null) {
+        setToken(token)
+      }
+    } catch (e) { }
+  }
 
   if (isLoading) {
     return (
