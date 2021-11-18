@@ -39,10 +39,10 @@ export default function App() {
         })
         .catch((err) => setIsLoading(false));
     },
-    logOut: () => {
+    logOut: async () => {
       setToken(null);
       setIsLoading(false);
-      removeToken();
+      await AsyncStorage.clear();
     },
   }), []);
 
@@ -57,12 +57,6 @@ export default function App() {
   const storeToken = async (token) => {
     try {
       await AsyncStorage.setItem("@token", token);
-    } catch (e) { }
-  }
-
-  const removeToken = async () => {
-    try {
-      await AsyncStorage.clear();
     } catch (e) { }
   }
 
