@@ -4,10 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import { showMessage, hideMessage } from "react-native-flash-message";
 import { LoginView, OtpView, RegisterWizardView, SignupView } from "./src/views";
 import { HomeTabs } from "./src/components/HomeTabs";
 import { AuthContext } from "./src/contexts/context";
 import { Colors, Endpoints } from "./src/constants";
+import FlashMessage from "react-native-flash-message";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,25 +21,74 @@ export default function App() {
 
     login: async (email, password) => {
       setIsLoading(true);
-      await axios.post(Endpoints.LOGIN_URL, { email, password })
+      await fetch(Endpoints.LOGIN_URL, {
+        method: 'POST',
+        body: JSON.stringify({ email, password })
+      }).then((response) => response.json())
         .then((res) => {
-          storeToken(res.data.token);
-          setToken(res.data.token);
-          fetchUserData(res.data.token);
           setIsLoading(false);
+          switch (res.statusCode) {
+            case 200:
+              storeToken(res.token);
+              setToken(res.token);
+              fetchUserData(res.token);
+            case 400:
+              showMessage({
+                message: "Warning",
+                description: res.message,
+                type: "warning",
+                hideStatusBar: true,
+                duration: 5000
+              });
+            default:
+              return;
+          }
         })
-        .catch((err) => setIsLoading(false));
+        .catch((e) => {
+          setIsLoading(false)
+          showMessage({
+            message: "Error",
+            description: e.message,
+            type: "danger",
+            hideStatusBar: true,
+            duration: 5000
+          });
+        });
     },
     signup: async (values) => {
       setIsLoading(true);
-      await axios.put(Endpoints.SIGNUP, values)
+      await fetch(Endpoints.SIGNUP, {
+        method: "POST",
+        body: JSON.stringify(values)
+      }).then((response) => response.json())
         .then((res) => {
-          storeToken(res.data.token);
-          setToken(res.data.token);
-          fetchUserData(res.data.token);
           setIsLoading(false);
-        })
-        .catch((err) => setIsLoading(false));
+          switch (res.statusCode) {
+            case 200:
+              storeToken(res.data.token);
+              setToken(res.data.token);
+              fetchUserData(res.data.token);
+            case 400:
+              showMessage({
+                message: "Warning",
+                description: res.message,
+                type: "warning",
+                hideStatusBar: true,
+                duration: 5000
+              });
+            default:
+              return;
+          }
+        }).catch((e) => {
+          setIsLoading(false);
+          showMessage({
+            message: "Error",
+            description: e.message,
+            type: "danger",
+            hideStatusBar: true,
+            duration: 5000
+          });
+        });
     },
     logOut: async () => {
       setToken(null);
@@ -112,6 +163,7 @@ export default function App() {
         )}
 
       </NavigationContainer>
+      <FlashMessage position="top" />
     </AuthContext.Provider>
   );
 }
