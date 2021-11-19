@@ -98,7 +98,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        {!token ? (
+        {token ? (
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="HomeTabs" component={HomeTabs} />
           </Stack.Navigator>
