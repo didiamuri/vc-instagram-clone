@@ -32,6 +32,7 @@ export default function App() {
               storeToken(res.token);
               setToken(res.token);
               fetchUserData(res.token);
+              break;
             case 400:
               showMessage({
                 message: "Warning",
@@ -40,6 +41,7 @@ export default function App() {
                 hideStatusBar: true,
                 duration: 5000
               });
+              break;
             default:
               return;
           }
@@ -68,6 +70,7 @@ export default function App() {
               storeToken(res.data.token);
               setToken(res.data.token);
               fetchUserData(res.data.token);
+              break;
             case 400:
               showMessage({
                 message: "Warning",
@@ -76,6 +79,7 @@ export default function App() {
                 hideStatusBar: true,
                 duration: 5000
               });
+              break;
             default:
               return;
           }
