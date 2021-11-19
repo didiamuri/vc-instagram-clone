@@ -44,7 +44,6 @@ const HomeView = () => {
       .then((body) => {
         setData(body);
         setLoading(false);
-        console.log(body);
       })
       .catch((err) => console.log(err));
   };
