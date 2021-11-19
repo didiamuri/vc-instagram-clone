@@ -60,16 +60,17 @@ export default function App() {
     signup: async (values) => {
       setIsLoading(true);
       await fetch(Endpoints.SIGNUP, {
-        method: "POST",
+        method: "PUT",
         body: JSON.stringify(values)
       }).then((response) => response.json())
         .then((res) => {
           setIsLoading(false);
+          const item = res.user;
           switch (res.statusCode) {
             case 200:
-              storeToken(res.data.token);
-              setToken(res.data.token);
-              fetchUserData(res.data.token);
+              storeToken(item.token);
+              setToken(item.token);
+              fetchUserData(item.token);
               break;
             case 400:
               showMessage({
