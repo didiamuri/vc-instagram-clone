@@ -30,6 +30,7 @@
     "react-native": "0.64.2",
     "react-native-date-picker": "^4.1.1",
     "react-native-elements": "^3.4.2",
+    "react-native-flash-message": "^0.2.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-pager-view": "5.4.6",
     "react-native-raw-bottom-sheet": "^2.2.0",
