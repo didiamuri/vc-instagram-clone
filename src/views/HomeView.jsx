@@ -44,7 +44,26 @@ const HomeView = () => {
       .then((body) => {
         setData(body);
         setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+  const updatePost = (post) => {
+    console.log("updating posts...")
+    fetch(API_URL + "/posts", { headers: {...headers,method:"PUT",body:post} })
+      .then((res) => res.json())
+      .then((body) => {
         console.log(body);
+        fetchData();
+      })
+      .catch((err) => console.log(err));
+  };
+  const deletePost = (id) => {
+    console.log("deleting posts...")
+    fetch(API_URL + "/posts", { headers: {...headers,method:"DELETE",body:{id:id}} })
+      .then((res) => res.json())
+      .then((body) => {
+        console.log(body);
+        fetchData();
       })
       .catch((err) => console.log(err));
   };
@@ -67,7 +86,7 @@ const HomeView = () => {
         }
         ListHeaderComponent={<Story />}
         data={data}
-        renderItem={({ item, index }) => <Post key={index} post={item} />}
+        renderItem={({ item, index }) => <Post update={() =>updatePost} delete={()=>deletePost} key={index} post={item} />}
       ></FlatList>
     </View>
   );

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ActivityIndicator, StyleSheet, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import { LoginView, OtpView, RegisterWizardView, SignupView } from "./src/views";
+import { LoginView, OtpView, RegisterWizardView, SignupView, Step3 as AddPostStep3 } from "./src/views";
 import { HomeTabs } from "./src/components/HomeTabs";
 import { AuthContext } from "./src/contexts/context";
 import { Colors, Endpoints } from "./src/constants";
