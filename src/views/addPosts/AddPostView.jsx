@@ -7,10 +7,12 @@ import RBSheet from "react-native-raw-bottom-sheet";
 import * as FileSystem from "expo-file-system";
 import { StorageAccessFramework } from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/core";
 
 export const AddPostView = () => {
   const refRBSheet = useRef();
   const [imageUri, setImageUri] = useState()
+  const navigation = useNavigation()
 
   const pickImage = async () => {
     let permissionResult =
@@ -24,6 +26,7 @@ export const AddPostView = () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
     //alert(JSON.stringify(pickerResult));
     setImageUri(pickerResult.uri);
+    navigation.setParams({imageUri :pickerResult.uri});
   };
 
   useEffect(async () => {
@@ -33,7 +36,7 @@ export const AddPostView = () => {
     // alert(`Files inside ${uri}:\n\n${JSON.stringify(files)}`);
   }, []);
 
-  return (
+  return ( 
     <View style={{ flex: 1 }}>
       <View style={{ height: 350, position: "relative" }}>
         <Image
