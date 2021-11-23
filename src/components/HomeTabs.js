@@ -11,6 +11,7 @@ import SearchViewCustomHeader from "./SearchViewCustomHeader";
 import Svg, { Path } from "react-native-svg";
 import ProfileNav from "./ProfileNav";
 import AddPostViewCustomHeader from "./AddPostViewCustomHeader";
+import AddPostNav from "../views/addPosts/AddPostNav";
 
 const Tab = createBottomTabNavigator();
 const handleNavigationOptions = ({ route }) => ({
@@ -85,8 +86,8 @@ export const HomeTabs = () => {
 
       <Tab.Screen
         name="addPost"
-        component={AddPostView}
-        options={{ header: (props) => <AddPostViewCustomHeader {...props} />,tabBarLabel: "Add Post", headerTitle: "Add Post" }}
+        component={AddPostNav}
+        options={{headerShown : false}}
       ></Tab.Screen>
       <Tab.Screen
         name="activity"
