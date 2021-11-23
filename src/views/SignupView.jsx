@@ -11,6 +11,7 @@ import {
 import axios from 'axios';
 import { Button, Icon, Tab } from "react-native-elements";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
+import { showMessage, hideMessage } from "react-native-flash-message";
 import { Colors, Endpoints } from "../constants";
 
 const w = Dimensions.get("screen").width;
@@ -25,7 +26,7 @@ const SignupView = () => {
 
   return (
     <>
-      <StatusBar barStyle="dark-content" translucent />
+      <StatusBar barStyle="default" translucent />
       <View style={styles.container}>
         <Text style={styles.title}>Enter phone number or email address</Text>
       </View>
@@ -101,6 +102,17 @@ const _emailRender = () => {
 
   const register = async (email) => {
     setIsLoading(true);
+    if (!email) {
+      setIsLoading(false);
+      showMessage({
+        message: "Warning",
+        description: "Email address is required to create an account",
+        type: "warning",
+        hideStatusBar: true,
+        duration: 5000
+      });
+      return;
+    }
     await axios.post(Endpoints.REGISTER, { email })
       .then((res) => {
         setIsLoading(false);
