@@ -4,6 +4,7 @@ import OtpView from "./OtpView";
 import BirthdayView from "./BirthdayView";
 import ProfileView from "./ProfileView";
 import RegisterWizardView from "./RegisterWizardView";
+import Step3 from "./addPosts/Step2"
 
 export {
   LoginView,
@@ -11,5 +12,6 @@ export {
   OtpView,
   BirthdayView,
   ProfileView,
-  RegisterWizardView
+  RegisterWizardView,
+  Step3,
 };

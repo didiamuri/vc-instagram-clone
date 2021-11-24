@@ -12,6 +12,7 @@ const Post = (props) => {
   const toggleLike = () => {
     if (!post.liked_by_me) {
       setPost({ ...post, liked_by_me: true,likes : post.likes+1});
+      props.update(post)
     }
   };
   const handleLike = () => {
@@ -71,7 +72,7 @@ const Post = (props) => {
                   size={Images.IMAGE_ICON_SIZE}
                   color={Colors.TAB_ICON_COLOR}
                 />
-                <Text style={styles.bottomSheetMenuText}>
+                <Text onPress={props.delete(post.id)} style={styles.bottomSheetMenuText}>
                   Delete post
                 </Text>
               </View>

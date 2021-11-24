@@ -3,13 +3,15 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ActivityView from "../views/ActivityView";
 import HomeView from "../views/HomeView";
 import SearchView from "../views/SearchView";
-import AddPostView from "../views/AddPostView";
+import AddPostView from "../views/addPosts/AddPostView";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Colors, Images } from "../constants";
 import HomeViewCustomHeader from "./HomeViewCustomHeader";
 import SearchViewCustomHeader from "./SearchViewCustomHeader";
 import Svg, { Path } from "react-native-svg";
 import ProfileNav from "./ProfileNav";
+import AddPostViewCustomHeader from "./AddPostViewCustomHeader";
+import AddPostNav from "../views/addPosts/AddPostNav";
 
 const Tab = createBottomTabNavigator();
 const handleNavigationOptions = ({ route }) => ({
@@ -84,8 +86,8 @@ export const HomeTabs = () => {
 
       <Tab.Screen
         name="addPost"
-        component={AddPostView}
-        options={{ tabBarLabel: "Add Post", headerTitle: "Add Post" }}
+        component={AddPostNav}
+        options={{headerShown : false}}
       ></Tab.Screen>
       <Tab.Screen
         name="activity"

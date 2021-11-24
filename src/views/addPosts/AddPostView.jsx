@@ -1,21 +1,47 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Image, Dimensions, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import images from "../utils/activities.json";
+import images from "../../utils/activities.json";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import RBSheet from "react-native-raw-bottom-sheet";
-import * as FileSystem from 'expo-file-system';
-
+import * as FileSystem from "expo-file-system";
+import { StorageAccessFramework } from "expo-file-system";
+import * as ImagePicker from "expo-image-picker";
+import { useNavigation } from "@react-navigation/core";
 
 export const AddPostView = () => {
   const refRBSheet = useRef();
+  const [imageUri, setImageUri] = useState()
+  const navigation = useNavigation()
 
-  return (
+  const pickImage = async () => {
+    let permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      alert("Permission to access camera roll is required!");
+      return;
+    }
+
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    //alert(JSON.stringify(pickerResult));
+    setImageUri(pickerResult.uri);
+    navigation.setParams({imageUri :pickerResult.uri});
+  };
+
+  useEffect(async () => {
+    // Gets all files inside of selected directory
+    // const uri = "file:///data/user/0/"
+    // const files = await StorageAccessFramework.readDirectoryAsync(uri);
+    // alert(`Files inside ${uri}:\n\n${JSON.stringify(files)}`);
+  }, []);
+
+  return ( 
     <View style={{ flex: 1 }}>
       <View style={{ height: 350, position: "relative" }}>
         <Image
           style={{ height: 350 }}
-          source={require("../assets/img/post1.png")}
+          source={{uri : imageUri}}
         />
         <View
           style={{
@@ -120,7 +146,12 @@ export const AddPostView = () => {
               marginStart: 10,
             }}
           >
-            <Ionicons name="camera-outline" color="white" size={22} />
+            <Ionicons
+              onPress={pickImage}
+              name="camera-outline"
+              color="white"
+              size={22}
+            />
           </View>
         </View>
       </View>
@@ -132,7 +163,7 @@ export const AddPostView = () => {
             <Image
               key={index}
               style={{ width: 100, height: 100, margin: 2 }}
-              source={require("../assets/img/image.jpeg")}
+              source={require("../../assets/img/image.jpeg")}
             />
           )}
         />
