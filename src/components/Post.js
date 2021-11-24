@@ -7,6 +7,9 @@ import Svg, { Path } from "react-native-svg";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Post = (props) => {
+
+  console.log(props.post)
+
   const [post, setPost] = useState(props.post);
   const refRBSheet = useRef();
   const toggleLike = () => {
@@ -89,7 +92,7 @@ const Post = (props) => {
           </RBSheet>
         </View>
       </View>
-      <TouchableWithoutFeedback onPress={this.handleDoubleTap}>
+      <TouchableWithoutFeedback>
         <Image
           style={styles.image}
           source={require("../assets/img/post1.png")}

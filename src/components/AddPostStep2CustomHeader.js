@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Dimensions, View, Text, Image } from "react-native";
+import { StyleSheet, Dimensions, View, Text, Image, Platform } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Colors, Images } from "../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -26,10 +26,47 @@ const AddPostStep2CustomHeader = (props) => {
       }
     } catch (e) {}
   };
-  const headers = {
-    method: "POST",
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + token,
+
+  const formData = (file, body = {}) => {
+    const data = new FormData();
+
+    data.append("file", {
+      name: file.substr(file.lastIndexOf("/") + 1),
+      type: `image/${file.substr(file.lastIndexOf(".") + 1)}`,
+      uri: Platform.OS === "ios" ? file.replace("file://", "") : file,
+    });
+
+    Object.keys(body).forEach((key) => {
+      data.append(key, body[key]);
+    });
+
+    return data;
+  };
+
+  const handleSubmit = () => {
+
+    console.log("TEST>>>>",
+      formData(props.route.params.imageUri, {
+        caption: props.route.params.caption,
+      })
+    );
+
+    fetch(`${API_URL}/upload`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": "Bearer " + token,
+      },
+      body: formData(props.route.params.imageUri, {
+        caption: props.route.params.caption,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log("response", res);
+        navigation.navigate("home");
+      })
+      .catch((e) => console.log("error", e));
   };
 
   const savePost = (post) => {
@@ -44,15 +81,7 @@ const AddPostStep2CustomHeader = (props) => {
       })
       .catch((err) => console.log(err));
   };
-  const handleSubmit = () => {
-    console.log(props.route.params);
-    savePost({
-      caption: props.route.params.caption,
-      likes: 0,
-      liked_by_me: false,
-      medias: ["url1", "url2"],
-    });
-  };
+
   return (
     <>
       <View style={styles.customHeaderContainer}>
