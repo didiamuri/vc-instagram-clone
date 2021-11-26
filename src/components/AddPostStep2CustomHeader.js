@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/core";
 import Step2 from "../views/addPosts/Step2";
 import Endpoints from "../constants/Endpoints";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from "expo-file-system";
 
 const AddPostStep2CustomHeader = (props) => {
   const { API_URL } = Endpoints;
@@ -43,23 +44,23 @@ const AddPostStep2CustomHeader = (props) => {
     return data;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
 
-    console.log("TEST>>>>",
-      formData(props.route.params.imageUri, {
-        caption: props.route.params.caption,
-      })
-    );
+    const file = props.route.params.imageUri;
+    const base64 = await FileSystem.readAsStringAsync(file, {
+      encoding: "base64",
+    });
 
-    fetch(`${API_URL}/upload`, {
+    fetch(`${API_URL}/images`, {
       method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": "Bearer " + token,
+        Authorization: "Bearer " + token,
       },
-      body: formData(props.route.params.imageUri, {
+      body: {
         caption: props.route.params.caption,
-      }),
+        extension: file.substr(file.lastIndexOf(".") + 1),
+        file: base64,
+      },
     })
       .then((res) => res.json())
       .then((res) => {

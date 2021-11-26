@@ -2663,7 +2663,7 @@ expo-error-recovery@~3.0.3:
   dependencies:
     expo-modules-core "~0.4.4"
 
-expo-file-system@^13.0.3, expo-file-system@~13.0.3:
+expo-file-system@~13.0.3:
   version "13.0.3"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-13.0.3.tgz#f8b3c47e0e7ecfd767043ed4c0aba6b207367678"
   integrity sha512-i65brB1Nd0upWigXMXrN4YSvj5cP77tB4hNCXoWYVaqRKpUnVlEku2FjQ/xVfIWLJMYrFHHC0Kgz/OKsNzQTpg==
