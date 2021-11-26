@@ -48,8 +48,6 @@ const AddPostStep2CustomHeader = (props) => {
     console.log(props.route.params);
     savePost({
       caption: props.route.params.caption,
-      likes: 0,
-      liked_by_me: false,
       medias: ["url1", "url2"],
     });
   };
