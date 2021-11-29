@@ -43,7 +43,14 @@ export default function App() {
               });
               break;
             default:
-              return;
+              showMessage({
+                message: "Warning",
+                description: res.message,
+                type: "warning",
+                hideStatusBar: true,
+                duration: 5000
+              });
+              break;
           }
         })
         .catch((e) => {
@@ -82,7 +89,14 @@ export default function App() {
               });
               break;
             default:
-              return;
+              showMessage({
+                message: "Warning",
+                description: res.message,
+                type: "warning",
+                hideStatusBar: true,
+                duration: 5000
+              });
+              break;
           }
         }).catch((e) => {
           setIsLoading(false);

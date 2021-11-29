@@ -17,11 +17,12 @@ import Post from "../components/Post";
 import Endpoints from "../constants/Endpoints";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const HomeView = () => {
+const HomeView = (props) => {
   const { API_URL } = Endpoints;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
+  const [reload, setReload] = useState(props.route.params && props.route.params.reload);
 
   const getToken = async () => {
     try {
@@ -38,6 +39,7 @@ const HomeView = () => {
   };
 
   const fetchData = () => {
+    console.log("...fetching...");
     setLoading(true);
     fetch(API_URL + "/posts", { headers: headers })
       .then((res) => res.json())
@@ -48,18 +50,10 @@ const HomeView = () => {
       .catch((err) => console.log(err));
   };
   const updatePost = (post) => {
-    console.log("updating posts...")
-    fetch(API_URL + "/posts", { headers: {...headers,method:"PUT",body:post} })
-      .then((res) => res.json())
-      .then((body) => {
-        console.log(body);
-        fetchData();
-      })
-      .catch((err) => console.log(err));
-  };
-  const deletePost = (id) => {
-    console.log("deleting posts...")
-    fetch(API_URL + "/posts", { headers: {...headers,method:"DELETE",body:{id:id}} })
+    console.log("updating posts...");
+    fetch(API_URL + "/posts", {
+      headers: { ...headers, method: "PUT", body: post },
+    })
       .then((res) => res.json())
       .then((body) => {
         console.log(body);
@@ -68,10 +62,36 @@ const HomeView = () => {
       .catch((err) => console.log(err));
   };
 
+  const likePost = (id) => {
+    console.log("liking posts...");
+    fetch(API_URL + "/likePost", {
+      headers: { ...headers, method: "POSt", body: { id: id } },
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        console.log(body);
+        fetchData();
+      })
+      .catch((err) => console.log(err));
+  };
+  const deletePost = (id) => {
+    console.log(id);
+    fetch(API_URL + "/posts/"+id, {
+      headers: { ...headers, method: "DELETE", body: { id: id } },
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        console.log(body);
+        fetchData();
+      })
+      .catch((err) => console.log("-----"+err));
+  };
+
   useEffect(() => {
     getToken();
     fetchData();
-  }, []);
+  }, [props.route]);
+
   return loading ? (
     <View style={{ backgroundColor: "white", flex: 1 }}>
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -82,11 +102,19 @@ const HomeView = () => {
     <View style={styles.container}>
       <FlatList
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={fetchData} />
+          <RefreshControl refreshing={loading} onRefresh={() => fetchData} />
         }
         ListHeaderComponent={<Story />}
         data={data}
-        renderItem={({ item, index }) => <Post update={() =>updatePost} delete={()=>deletePost} key={index} post={item} />}
+        renderItem={({ item, index }) => (
+          <Post
+            update={(post) => updatePost(post)}
+            likePost={(id) => likePost(id)}
+            delete={(id) => deletePost(id)}
+            key={index}
+            post={item}
+          />
+        )}
       ></FlatList>
     </View>
   );
