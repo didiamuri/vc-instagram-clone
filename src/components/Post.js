@@ -7,32 +7,24 @@ import Svg, { Path } from "react-native-svg";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const Post = (props) => {
-
-  console.log(props.post)
-
   const [post, setPost] = useState(props.post);
   const refRBSheet = useRef();
   const toggleLike = () => {
+    props.likePost(post.id);
     if (!post.liked_by_me) {
-      setPost({ ...post, liked_by_me: true,likes : post.likes+1});
-      props.update(post)
-    }
-  };
-  const handleLike = () => {
-    if (post.liked_by_me) {
-      setPost({ ...post, liked_by_me: false, likes : post.likes-1 });
+      setPost({ ...post, liked_by_me: true, likes: post.likes + 1 });
     } else {
-      setPost({ ...post, liked_by_me: true,likes : post.likes+1 });
+      setPost({ ...post, liked_by_me: false, likes: post.likes - 1 });
     }
   };
   lastTap = null;
   handleDoubleTap = () => {
     const now = Date.now();
     const DOUBLE_PRESS_DELAY = 300;
-    if (this.lastTap && now - this.lastTap < DOUBLE_PRESS_DELAY) {
+    if (lastTap && now - lastTap < DOUBLE_PRESS_DELAY) {
       toggleLike();
     } else {
-      this.lastTap = now;
+      lastTap = now;
     }
   };
 
@@ -75,11 +67,14 @@ const Post = (props) => {
                   size={Images.IMAGE_ICON_SIZE}
                   color={Colors.TAB_ICON_COLOR}
                 />
-                <Text onPress={props.delete(post.id)} style={styles.bottomSheetMenuText}>
+                <Text
+                  onPress={()=>props.delete(post.id)}
+                  style={styles.bottomSheetMenuText}
+                >
                   Delete post
                 </Text>
               </View>
-              
+
               <View style={styles.bottomSheetMenuItem}>
                 <Ionicons
                   name="flag-outline"
@@ -92,18 +87,15 @@ const Post = (props) => {
           </RBSheet>
         </View>
       </View>
-      <TouchableWithoutFeedback>
-        <Image
-          style={styles.image}
-          source={require("../assets/img/post1.png")}
-        />
+      <TouchableWithoutFeedback onPress={handleDoubleTap}>
+        <Image style={styles.image} source={{ uri: post.medias[0] }} />
       </TouchableWithoutFeedback>
 
       <View style={styles.bottomSection}>
         <View style={styles.iconSection}>
           <View style={styles.imageIcons}>
             <Ionicons
-              onPress={handleLike}
+              onPress={toggleLike}
               style={styles.icon}
               name={post.liked_by_me ? "heart" : "heart-outline"}
               size={Images.IMAGE_ICON_SIZE}
@@ -148,7 +140,7 @@ const Post = (props) => {
           <Text style={styles.captionText}></Text>
         </View>
         <View>
-          <Text style={styles.commentText}> {post.comment} </Text>
+          <Text style={styles.commentText}> {post.caption} </Text>
         </View>
       </View>
     </View>

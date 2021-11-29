@@ -8,15 +8,24 @@ import { useNavigation } from "@react-navigation/core";
 import Step2 from "../views/addPosts/Step2";
 const AddPostViewCustomHeader = (props) => {
   const navigation = useNavigation();
+
+  const gotToNextStep = () => {
+    console.log(props.route.params)
+    if (props.route.params && props.route.params.imageUri) {
+      navigation.navigate("Step2", { ...props.route.params });
+    }else{
+      alert("Please select an image")
+    }
+  };
   return (
     <>
       <View style={styles.customHeaderContainer}>
         <View style={styles.leftSection}>
-          <Ionicons style={styles.closeIcon} size={40} name="close-outline" />
+          <Ionicons onPress={()=>navigation.goBack()} style={styles.closeIcon} size={40} name="close-outline" />
           <Text style={styles.title}>Add Post</Text>
         </View>
         <Ionicons
-          onPress={()=>navigation.navigate('Step2',{...props.route.params})}
+          onPress={gotToNextStep}
           size={35}
           name="arrow-forward-outline"
         />

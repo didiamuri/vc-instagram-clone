@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Dimensions, View, Text, Image, Platform } from "react-native";
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  Text,
+  Image,
+  Platform,
+  ActivityIndicator,
+} from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { Colors, Images } from "../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -15,6 +23,7 @@ const AddPostStep2CustomHeader = (props) => {
   const navigation = useNavigation();
 
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getToken();
   }, []);
@@ -45,7 +54,7 @@ const AddPostStep2CustomHeader = (props) => {
   };
 
   const handleSubmit = async () => {
-
+    setLoading(true);
     const file = props.route.params.imageUri;
     const base64 = await FileSystem.readAsStringAsync(file, {
       encoding: "base64",
@@ -55,19 +64,21 @@ const AddPostStep2CustomHeader = (props) => {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
       },
-      body: {
+      body: JSON.stringify({
         caption: props.route.params.caption,
         extension: file.substr(file.lastIndexOf(".") + 1),
         file: base64,
-      },
+      }),
     })
       .then((res) => res.json())
       .then((res) => {
         console.log("response", res);
-        navigation.navigate("home");
+        navigation.navigate("home", { reload: true });
       })
-      .catch((e) => console.log("error", e));
+      .catch((e) => console.log("error", e))
+      .finally(() => setLoading(false));
   };
 
   const savePost = (post) => {
@@ -82,19 +93,27 @@ const AddPostStep2CustomHeader = (props) => {
       })
       .catch((err) => console.log(err));
   };
-
   return (
     <>
       <View style={styles.customHeaderContainer}>
         <View style={styles.leftSection}>
-          <Ionicons style={styles.closeIcon} size={40} name="close-outline" />
+          <Ionicons
+            onPress={() => navigation.goBack()}
+            style={styles.closeIcon}
+            size={40}
+            name="close-outline"
+          />
           <Text style={styles.title}>New Post</Text>
         </View>
-        <Ionicons
-          onPress={() => handleSubmit()}
-          size={35}
-          name="checkmark-outline"
-        />
+        {loading ? (
+          <ActivityIndicator size="small" color="#0000ff" />
+        ) : (
+          <Ionicons
+            onPress={() => handleSubmit()}
+            size={35}
+            name="checkmark-outline"
+          />
+        )}
       </View>
     </>
   );
