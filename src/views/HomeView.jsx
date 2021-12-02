@@ -22,7 +22,9 @@ const HomeView = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(null);
-  const [reload, setReload] = useState(props.route.params && props.route.params.reload);
+  const [reload, setReload] = useState(
+    props.route.params && props.route.params.reload
+  );
 
   const getToken = async () => {
     try {
@@ -65,26 +67,29 @@ const HomeView = (props) => {
   const likePost = (id) => {
     console.log("liking posts...");
     fetch(API_URL + "/likePost", {
-      headers: { ...headers, method: "POSt", body: { id: id } },
+      headers: { ...headers},
+      method: "POST",
+      body: JSON.stringify({ post: id }),
     })
       .then((res) => res.json())
       .then((body) => {
         console.log(body);
-        fetchData();
+        //fetchData();
       })
       .catch((err) => console.log(err));
   };
   const deletePost = (id) => {
-    console.log(id);
-    fetch(API_URL + "/posts/"+id, {
-      headers: { ...headers, method: "DELETE", body: { id: id } },
+    console.log(API_URL + "/posts/" + id);
+    fetch(API_URL + "/posts/" + id, {
+      headers: { ...headers },
+      method: "DELETE",
     })
       .then((res) => res.json())
       .then((body) => {
         console.log(body);
         fetchData();
       })
-      .catch((err) => console.log("-----"+err));
+      .catch((err) => console.log("-----" + err));
   };
 
   useEffect(() => {
