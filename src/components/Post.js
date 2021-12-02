@@ -81,7 +81,7 @@ const Post = (props) => {
                   size={Images.IMAGE_ICON_SIZE}
                   color={Colors.TAB_ICON_COLOR}
                 />
-                <Text style={styles.bottomSheetMenuText}>Signaler</Text>
+                <Text style={styles.bottomSheetMenuText}>Report</Text>
               </View>
             </View>
           </RBSheet>
